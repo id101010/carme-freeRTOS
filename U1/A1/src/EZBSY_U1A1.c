@@ -78,8 +78,8 @@ static int8_t   s8DisplayValue;     /* Holds the displayed value */
 
 /* Table defining cyclical OS */
 TableEntry sTableEntry[] = {
-    {0, 3, vApplication1},
-    {0, 3, vApplication2},
+    {0, 1, vApplication1},
+    {0, 1, vApplication2},
     {0, 1, vApplication3},
     {0, 1, vApplication4},
     {0, 0, LAST_ENTRY}

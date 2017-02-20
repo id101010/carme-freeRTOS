@@ -4,7 +4,7 @@
 #
 
 pid=/tmp/st-util.pid
-isp=$(ls /dev/stlinkv*)
+isp=$(ls /dev/stlinkv2_1)
 
 case "$1" in
     "start")
@@ -17,7 +17,8 @@ case "$1" in
             exit 0    
         fi
         echo -e "[\033[32m:)\033[m] Starting st-util."
-        /bin/st-util > /dev/null 2>&1 &
+        #/bin/st-util > /dev/null 2>&1 &
+        /usr/local/bin/st-util > /dev/null 2>&1 & # hotfix for ubuntu setup
         echo $! > /tmp/st-util.pid
     ;;
     "stop")
