@@ -30,6 +30,7 @@
 # Debug files
 *.dSYM/
 *.su
+*.swp
 
 # Build folder
 build
