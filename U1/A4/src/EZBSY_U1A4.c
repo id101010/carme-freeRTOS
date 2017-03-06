@@ -45,7 +45,7 @@
 #define STACKSIZE_TASK2        ( 256 )
 #define STACKSIZE_TASK3        ( 256 )
 
-#define SPEED                  ( 100 )
+#define SPEED                  ( 200 )
 #define PRIORITY_TASK1         ( 1 )
 #define PRIORITY_TASK2         ( 1 )
 #define PRIORITY_TASK3         ( 1 )
@@ -197,8 +197,10 @@ static void  vAppTask3(void *pvData) {
 
     while(1) {
         sprintf(cBuffer, pcButtonsValueText, (int) u8ButtonState);
+        LCD_DisplayStringCenterLine(10, "              ");
         LCD_DisplayStringCenterLine(10, cBuffer);
         sprintf(cBuffer, pcSwitchesValueText, (int) u8SwitchState);
+        LCD_DisplayStringCenterLine(11, "              ");
         LCD_DisplayStringCenterLine(11, cBuffer);
 
         vTaskDelay(SPEED);

@@ -44,11 +44,7 @@
 #define STACKSIZE_TASK2        ( 256 )
 
 #define PRIORITY_TASK1         ( 1 )
-#define PRIORITY_TASK2         ( 1 )  // TODO: modify priority, low priority number
-                                      // denotes low priority task
-
-//#define USE_vWAIT                   // TODO: set this compiler switch to use CPU-wait
-                                      // instead of vTastDelay
+#define PRIORITY_TASK2         ( 1 )
 
 //----- Data types -------------------------------------------------------------
 
@@ -165,8 +161,21 @@ static void vAppTask1(void *pvData) {
  ******************************************************************************/
 static void  vAppTask2(void *pvData) {
 
+    uint16_t potiValue;
+
     while(1) {
-        CARME_IO2_ADC_Get(CARME_IO2_ADC_PORT0, &u16Speed);
+        CARME_IO2_ADC_Get(CARME_IO2_ADC_PORT0, &potiValue);
+
+        if(potiValue < 50){
+            potiValue = 50;
+        } 
+        if(potiValue > 999){
+          potiValue = 999;
+        }
+
+        taskENTER_CRITICAL();
+        u16Speed = potiValue;
+        taskEXIT_CRITICAL();
 #ifdef USE_vWAIT
         vWait();
 #else
@@ -174,25 +183,3 @@ static void  vAppTask2(void *pvData) {
 #endif
     }
 }
-
-/*******************************************************************************
- *  function :    wait
- ******************************************************************************/
-/** \brief        Wait some time using CPU
- *
- *  \type         local
- *
- *  \return       void
- *
- ******************************************************************************/
-#ifdef USE_vWAIT
-static void vWait(void) {
-
-    uint32_t i, j;
-
-    for (i=0; i<1000; i++) {
-        for (j=0; j<2000; j++) {
-        }
-    }
-}
-#endif
