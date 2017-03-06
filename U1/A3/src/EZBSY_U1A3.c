@@ -52,10 +52,6 @@
 static void  vAppTask1(void *pvData);
 static void  vAppTask2(void *pvData);
 
-#ifdef USE_vWAIT
-static void  vWait(void);
-#endif
-
 //----- Data -------------------------------------------------------------------
 uint16_t u16Speed = 100;
 
@@ -139,11 +135,7 @@ static void vAppTask1(void *pvData) {
      
         CARME_IO1_LED_Set(u8LED1to8, 0xFF);
    
-#ifdef USE_vWAIT
-        vWait();
-#else
         vTaskDelay(u16Speed);
-#endif
     }
 }
 
@@ -176,10 +168,7 @@ static void  vAppTask2(void *pvData) {
         taskENTER_CRITICAL();
         u16Speed = potiValue;
         taskEXIT_CRITICAL();
-#ifdef USE_vWAIT
-        vWait();
-#else
+     
         vTaskDelay(u16Speed);
-#endif
     }
 }
