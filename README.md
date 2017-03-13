@@ -35,6 +35,7 @@ You'll need the following packages installed on your system
 - arm-none-eabi-gdb
 - stlink
 - make
+- astyle
 
 #Links
 
