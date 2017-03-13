@@ -66,7 +66,8 @@ SemaphoreHandle_t mutexUART;
  *  \return       void
  *
  ******************************************************************************/
-void  vUARTTask(void *pvData) {
+void  vUARTTask(void *pvData)
+{
 
     char* pcText = (char *) pvData;
 

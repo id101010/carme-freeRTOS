@@ -85,7 +85,8 @@ static const char* pcMutexName = "UART Mutex"; ///< Mutex to access UART
  *  \return       error code
  *
  ******************************************************************************/
-int  main(void) {
+int  main(void)
+{
 
     /* Ensure all priority bits are assigned as preemption priority bits. */
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
@@ -131,7 +132,8 @@ int  main(void) {
  *  \return       void
  *
  ******************************************************************************/
-static void vCreateTasks(void)  {
+static void vCreateTasks(void)
+{
     /* Create UART Task1 */
     xTaskCreate(vUARTTask,
                 "UART Task1",

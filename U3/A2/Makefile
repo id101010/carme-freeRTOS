@@ -8,6 +8,7 @@ CROSS_COMPILE=arm-none-eabi-
 CC=$(CROSS_COMPILE)gcc
 OBJCOPY=$(CROSS_COMPILE)objcopy
 GDB=$(CROSS_COMPILE)gdb
+STYLE=astyle --style=1tbs
 
 MKDIR=mkdir -p
 RM=rm -f
@@ -80,6 +81,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 #Clean Obj files and builded stuff
 clean:
 	$(RMDIR) $(BUILD_DIR) $(OBJ_DIR)
+	$(STYLE) $(CFILES)
 
 #Debug target: starts the st-util server and gdb and leaves it open
 debug: start all
