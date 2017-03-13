@@ -72,7 +72,8 @@ static const char* pcTableAccess = "TableAccess";
  *  \return       error code
  *
  ******************************************************************************/
-int  main(void) {
+int  main(void)
+{
 
     uint8_t i;
     char    cBuffer[12];
@@ -116,7 +117,8 @@ int  main(void) {
  *  \return       error code
  *
  ******************************************************************************/
-static void vCreateTasks(void)  {
+static void vCreateTasks(void)
+{
 
     uint8_t i;
     char    cBuffer[32];

@@ -69,20 +69,21 @@ int ts_formatlength(const char *fmt, va_list va);
 */
 void ts_itoa(char **buf, unsigned int d, int base)
 {
-	int div = 1;
-	while (d/div >= base)
-		div *= base;
+    int div = 1;
+    while (d/div >= base) {
+        div *= base;
+    }
 
-	while (div != 0)
-	{
-		int num = d/div;
-		d = d%div;
-		div /= base;
-		if (num > 9)
-			*((*buf)++) = (num-10) + 'A';
-		else
-			*((*buf)++) = num + '0';
-	}
+    while (div != 0) {
+        int num = d/div;
+        d = d%div;
+        div /= base;
+        if (num > 9) {
+            *((*buf)++) = (num-10) + 'A';
+        } else {
+            *((*buf)++) = num + '0';
+        }
+    }
 }
 
 /**
@@ -93,60 +94,52 @@ void ts_itoa(char **buf, unsigned int d, int base)
 */
 int ts_formatstring(char *buf, const char *fmt, va_list va)
 {
-	char *start_buf = buf;
-	while(*fmt)
-	{
-		/* Character needs formating? */
-		if (*fmt == '%')
-		{
-			switch (*(++fmt))
-			{
-			  case 'c':
-				*buf++ = va_arg(va, int);
-				break;
-			  case 'd':
-			  case 'i':
-				{
-					signed int val = va_arg(va, signed int);
-					if (val < 0)
-					{
-						val *= -1;
-						*buf++ = '-';
-					}
-					ts_itoa(&buf, val, 10);
-				}
-				break;
-			  case 's':
-				{
-					char * arg = va_arg(va, char *);
-					while (*arg)
-					{
-						*buf++ = *arg++;
-					}
-				}
-				break;
-			  case 'u':
-					ts_itoa(&buf, va_arg(va, unsigned int), 10);
-				break;
-			  case 'x':
-			  case 'X':
-					ts_itoa(&buf, va_arg(va, int), 16);
-				break;
-			  case '%':
-				  *buf++ = '%';
-				  break;
-			}
-			fmt++;
-		}
-		/* Else just copy */
-		else
-		{
-			*buf++ = *fmt++;
-		}
-	}
-	*buf = 0;
+    char *start_buf = buf;
+    while(*fmt) {
+        /* Character needs formating? */
+        if (*fmt == '%') {
+            switch (*(++fmt)) {
+            case 'c':
+                *buf++ = va_arg(va, int);
+                break;
+            case 'd':
+            case 'i': {
+                signed int val = va_arg(va, signed int);
+                if (val < 0) {
+                    val *= -1;
+                    *buf++ = '-';
+                }
+                ts_itoa(&buf, val, 10);
+            }
+            break;
+            case 's': {
+                char * arg = va_arg(va, char *);
+                while (*arg) {
+                    *buf++ = *arg++;
+                }
+            }
+            break;
+            case 'u':
+                ts_itoa(&buf, va_arg(va, unsigned int), 10);
+                break;
+            case 'x':
+            case 'X':
+                ts_itoa(&buf, va_arg(va, int), 16);
+                break;
+            case '%':
+                *buf++ = '%';
+                break;
+            }
+            fmt++;
+        }
+        /* Else just copy */
+        else {
+            *buf++ = *fmt++;
+        }
+    }
+    *buf = 0;
 
-	return (int)(buf - start_buf);
+    return (int)(buf - start_buf);
 }
 
 
@@ -159,50 +152,45 @@ int ts_formatstring(char *buf, const char *fmt, va_list va)
 */
 int ts_formatlength(const char *fmt, va_list va)
 {
-	int length = 0;
-	while (*fmt)
-	{
-		if (*fmt == '%')
-		{
-			++fmt;
-			switch (*fmt)
-			{
-			  case 'c':
-		  		  va_arg(va, int);
-				  ++length;
-				  break;
-			  case 'd':
-			  case 'i':
-			  case 'u':
-				  /* 32 bits integer is max 11 characters with minus sign */
-				  length += 11;
-				  va_arg(va, int);
-				  break;
-			  case 's':
-			  	  {
-			  		  char * str = va_arg(va, char *);
-			  		  while (*str++)
-			  			  ++length;
-			  	  }
-				  break;
-			  case 'x':
-			  case 'X':
-				  /* 32 bits integer as hex is max 8 characters */
-				  length += 8;
-				  va_arg(va, unsigned int);
-				  break;
-			  default:
-				  ++length;
-				  break;
-			}
-		}
-		else
-		{
-			++length;
-		}
-		++fmt;
-	}
-	return length;
+    int length = 0;
+    while (*fmt) {
+        if (*fmt == '%') {
+            ++fmt;
+            switch (*fmt) {
+            case 'c':
+                va_arg(va, int);
+                ++length;
+                break;
+            case 'd':
+            case 'i':
+            case 'u':
+                /* 32 bits integer is max 11 characters with minus sign */
+                length += 11;
+                va_arg(va, int);
+                break;
+            case 's': {
+                char * str = va_arg(va, char *);
+                while (*str++) {
+                    ++length;
+                }
+            }
+            break;
+            case 'x':
+            case 'X':
+                /* 32 bits integer as hex is max 8 characters */
+                length += 8;
+                va_arg(va, unsigned int);
+                break;
+            default:
+                ++length;
+                break;
+            }
+        } else {
+            ++length;
+        }
+        ++fmt;
+    }
+    return length;
 }
 
 /**
@@ -214,12 +202,12 @@ int ts_formatlength(const char *fmt, va_list va)
 */
 int siprintf(char *buf, const char *fmt, ...)
 {
-	int length;
-	va_list va;
-	va_start(va, fmt);
-	length = ts_formatstring(buf, fmt, va);
-	va_end(va);
-	return length;
+    int length;
+    va_list va;
+    va_start(va, fmt);
+    length = ts_formatstring(buf, fmt, va);
+    va_end(va);
+    return length;
 }
 
 /**
@@ -231,19 +219,19 @@ int siprintf(char *buf, const char *fmt, ...)
 */
 int fiprintf(FILE * stream, const char *fmt, ...)
 {
-	int length = 0;
-	va_list va;
-	va_start(va, fmt);
-	length = ts_formatlength(fmt, va);
-	va_end(va);
-	{
-		char buf[length];
-		va_start(va, fmt);
-		length = ts_formatstring(buf, fmt, va);
-		length = _write(stream->_file, buf, length);
-		va_end(va);
-	}
-	return length;
+    int length = 0;
+    va_list va;
+    va_start(va, fmt);
+    length = ts_formatlength(fmt, va);
+    va_end(va);
+    {
+        char buf[length];
+        va_start(va, fmt);
+        length = ts_formatstring(buf, fmt, va);
+        length = _write(stream->_file, buf, length);
+        va_end(va);
+    }
+    return length;
 }
 
 /**
@@ -256,19 +244,19 @@ int fiprintf(FILE * stream, const char *fmt, ...)
 */
 int iprintf(const char *fmt, ...)
 {
-	int length = 0;
-	va_list va;
-	va_start(va, fmt);
-	length = ts_formatlength(fmt, va);
-	va_end(va);
-	{
-		char buf[length];
-		va_start(va, fmt);
-		length = ts_formatstring(buf, fmt, va);
-		length = _write(1, buf, length);
-		va_end(va);
-	}
-	return length;
+    int length = 0;
+    va_list va;
+    va_start(va, fmt);
+    length = ts_formatlength(fmt, va);
+    va_end(va);
+    {
+        char buf[length];
+        va_start(va, fmt);
+        length = ts_formatstring(buf, fmt, va);
+        length = _write(1, buf, length);
+        va_end(va);
+    }
+    return length;
 }
 
 /**
@@ -281,23 +269,20 @@ int iprintf(const char *fmt, ...)
 */
 int fputs(const char *s, FILE *fp)
 {
-	int length = strlen(s);
-	int wlen = 0;
-	int res;
+    int length = strlen(s);
+    int wlen = 0;
+    int res;
 
-	wlen = _write((fp->_file), (char*)s, length);
-	wlen += _write((fp->_file), "\n", 1);
+    wlen = _write((fp->_file), (char*)s, length);
+    wlen += _write((fp->_file), "\n", 1);
 
-	if (wlen == (length+1))
-	{
-		res = 0;
-	}
-	else
-	{
-		res = EOF;
-	}
+    if (wlen == (length+1)) {
+        res = 0;
+    } else {
+        res = EOF;
+    }
 
-	return res;
+    return res;
 }
 
 /**
@@ -311,23 +296,20 @@ int fputs(const char *s, FILE *fp)
 */
 int puts(const char *s)
 {
-	int length = strlen(s);
-	int numbytes = 0;
-	int res;
+    int length = strlen(s);
+    int numbytes = 0;
+    int res;
 
-	numbytes = _write(1, (char*)s, length);
-	numbytes += _write(1, "\n", 1);
+    numbytes = _write(1, (char*)s, length);
+    numbytes += _write(1, "\n", 1);
 
-	if (numbytes == (length+1))
-	{
-		res = 0;
-	}
-	else
-	{
-		res = EOF;
-	}
+    if (numbytes == (length+1)) {
+        res = 0;
+    } else {
+        res = EOF;
+    }
 
-	return res;
+    return res;
 }
 
 /**
@@ -340,5 +322,5 @@ int puts(const char *s)
 */
 size_t fwrite(const void * buf, size_t size, size_t count, FILE * fp)
 {
-	return (_write((fp->_file), (char*)buf, size * count) / size);
+    return (_write((fp->_file), (char*)buf, size * count) / size);
 }

@@ -86,7 +86,8 @@ static const char* pcPortions    = "Portions";                /* Portions eaten 
  *  \return       void
  *
  ******************************************************************************/
-void vInitDisplay(void) {
+void vInitDisplay(void)
+{
 
     LCD_Init();
     mutexLCD = xSemaphoreCreateMutex();
@@ -103,7 +104,8 @@ void vInitDisplay(void) {
  *  \return       void
  *
  ******************************************************************************/
-void vDisplayStaticText(void) {
+void vDisplayStaticText(void)
+{
 
     char    cBuffer[20];
     uint8_t i;
@@ -149,7 +151,8 @@ void vDisplayStaticText(void) {
  *  \return       void
  *
  ******************************************************************************/
-void  vDisplayState(uint8_t u8Philosopher, PhilosopherStates ePhilosopherStates) {
+void  vDisplayState(uint8_t u8Philosopher, PhilosopherStates ePhilosopherStates)
+{
 
     if (xSemaphoreTake(mutexLCD, portMAX_DELAY) == pdTRUE) {
 
@@ -176,7 +179,8 @@ void  vDisplayState(uint8_t u8Philosopher, PhilosopherStates ePhilosopherStates)
  *  \return       void
  *
  ******************************************************************************/
-void  vDisplayPortions(uint8_t u8Philosopher, uint32_t u32Portions) {
+void  vDisplayPortions(uint8_t u8Philosopher, uint32_t u32Portions)
+{
 
     char   cBuffer[8];
 

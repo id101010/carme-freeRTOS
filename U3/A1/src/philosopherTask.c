@@ -70,7 +70,8 @@ static uint32_t u32Portions[NUMBER_OF_PHILOSOPHERS];
  *  \return       void
  *
  ******************************************************************************/
-void  vPhilosopherTask(void *pvData) {
+void  vPhilosopherTask(void *pvData)
+{
 
     uint8_t u8Philosopher = (uint32_t) pvData;    /* Philosopher number */
     u32Portions[u8Philosopher] = 0;               /* Reset eaten portions */
