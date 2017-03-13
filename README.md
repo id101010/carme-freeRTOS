@@ -19,8 +19,13 @@ Solutions for the bfh ti real-time-os class excercises
 
 ## U3
 
-* 1) Dining philosophers problem - solution
-* 2) Multitask uart printing
+* 1) Dining philosophers problem - solution using semaphores
+* 2) Multitask uart printing - solution using mutex
+
+## U4
+
+* 1) Italian Chef example - Message Queues
+* 2) UART Task Gatekeeper for logging
 
 # Required packages
 
