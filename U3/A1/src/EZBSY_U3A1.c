@@ -89,14 +89,12 @@ int  main(void) {
         semaphoreFork[i] = xSemaphoreCreateBinary();
         xSemaphoreGive(semaphoreFork[i]); /* make available */
         sprintf(cBuffer, "Fork%d", (int) i);
-        vQueueAddToRegistry((xQueueHandle) semaphoreFork[i],
-                            pcSemaphoreForkName[i]);
+        vQueueAddToRegistry((xQueueHandle) semaphoreFork[i], pcSemaphoreForkName[i]);
     }
+
     /* Counting semaphore for table, protect table access to avoid deadlock */
-    semaphoreTable = xSemaphoreCreateCounting(NUMBER_OF_PHILOSOPHERS - 2,
-                     NUMBER_OF_PHILOSOPHERS - 2);
-    vQueueAddToRegistry((xQueueHandle) semaphoreTable,
-                        pcTableAccess);
+    semaphoreTable = xSemaphoreCreateCounting(NUMBER_OF_PHILOSOPHERS - 2, NUMBER_OF_PHILOSOPHERS - 2);
+    vQueueAddToRegistry((xQueueHandle) semaphoreTable, pcTableAccess);
 
     /* Create all application tasks and launch the scheduler */
     vCreateTasks();
