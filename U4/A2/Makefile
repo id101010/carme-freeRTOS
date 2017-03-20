@@ -1,7 +1,7 @@
 #2015 by tmoe, id10101 (and the internet :) )
 
 #Name of the binary/project
-TARGET=EZBS_U4A1
+TARGET=EZBS_U4A2
 
 #Tools
 CROSS_COMPILE=arm-none-eabi-
